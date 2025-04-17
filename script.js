@@ -748,7 +748,8 @@ function searchRestaurant(name) {
                         background:white;
                         border:none;
                         border-radius:12px;
-                        box-shadow:0 4px 12px rgba(0,0,0,0.2);">
+                        box-shadow:0 4px 12px rgba(0,0,0,0.2);
+                        z-index:9999">
               <div style="text-align:left;margin-bottom:12px;">
                 <h3 style="margin-bottom:6px;font-size:16px;font-weight:bold;color:#111;">${r.name}</h3>
                 <div style="font-size:13px;color:#666;">주소: ${r.address}</div>
