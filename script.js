@@ -583,7 +583,11 @@ function initMap() {
   companyBtn.title = '회사 위치로 이동';
   companyBtn.style.cssText = baseStyle;
   companyBtn.onclick = () => {
-    map.setCenter(new naver.maps.LatLng(IMNEWRUN_LOCATION.lat, IMNEWRUN_LOCATION.lng));
+    const offsetLat =
+      window.innerWidth < 768
+        ? IMNEWRUN_LOCATION.lat - 0.00055 // 모바일용
+        : IMNEWRUN_LOCATION.lat - 0; // PC용
+    map.setCenter(new naver.maps.LatLng(offsetLat, IMNEWRUN_LOCATION.lng));
   };
 
   // 📍 현재위치 버튼 (오른쪽)
@@ -715,7 +719,12 @@ function searchRestaurant(name) {
   if (!r) return;
   if (currentMarker) currentMarker.setMap(null);
   if (currentInfoWindow) currentInfoWindow.close();
-
+  if (window.innerWidth < 768) {
+    const mapElement = document.getElementById('map');
+    if (mapElement) {
+      mapElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
   naver.maps.Service.geocode({ query: r.address }, (status, res) => {
     if (status !== naver.maps.Service.Status.OK || res.v2.meta.totalCount === 0) return;
 
